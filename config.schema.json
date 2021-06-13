@@ -1,5 +1,5 @@
 {
-  "pluginAlias": "UPSNUT",
+  "pluginAlias": "UPS",
   "pluginType": "accessory",
   "singular": false,
   "headerDisplay": "Homebridge plugin for UPS devices via NUT.",
