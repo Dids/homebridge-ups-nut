@@ -15,6 +15,22 @@
         "description": "The name used in both HomeBridge and HomeKit.",
         "required": true
       },
+      "manufacturer": {
+        "title": "Manufacturer",
+        "type": "string",
+        "minLength": 1,
+        "default": "UPS",
+        "description": "Optional manufacturer name for the UPS. If not set, will attempt to poll info from NUT.",
+        "required": false
+      },
+      "model": {
+        "title": "Model",
+        "type": "string",
+        "minLength": 1,
+        "default": "NUT",
+        "description": "Optional model name for the UPS. If not set, will attempt to poll info from NUT.",
+        "required": false
+      },
       "nutIpAddress": {
         "title": "NUT IP Address",
         "type": "string",
@@ -25,14 +41,14 @@
       "nutUsername": {
         "title": "NUT Username",
         "type": "string",
-        "description": "Username for the NUT monitor user.",
+        "description": "Optional username for the NUT monitor user.",
         "default": "",
         "required": false
       },
       "nutPassword": {
         "title": "NUT Password",
         "type": "string",
-        "description": "Password for the NUT monitor user.",
+        "description": "Optional password for the NUT monitor user.",
         "default": "",
         "required": false
       }

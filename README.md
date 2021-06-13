@@ -2,6 +2,8 @@
 
 # homebridge-ups-nut
 
+**DISCLAIMER:** _This is NOT yet ready for usage and still in heavy development!_
+
 HomeKit battery status information for various UPS devices. Uses [NUT](https://networkupstools.org/) for communication.
 
 # Installation
