@@ -1,0 +1,62 @@
+{
+  "displayName": "Homebridge UPS NUT",
+  "name": "homebridge-ups-nut",
+  "version": "0.0.1-rc1",
+  "description": "Homebridge plugin for UPS via NUT.",
+  "main": "dist/index.js",
+  "files": [
+    "dist/*.js",
+    "dist/**/*.js",
+    "config.schema.json"
+  ],
+  "scripts": {
+    "clean": "rimraf ./dist ./coverage",
+    "build": "rimraf ./dist ./coverage && tsc",
+    "lint": "eslint src/*.ts --fix",
+    "lint-check": "eslint src/*.ts",
+    "prepare": "npm run build",
+    "prepublishOnly": "npm run lint-check",
+    "postpublish": "npm run clean",
+    "publish-next": "npm publish . --tag next",
+    "watch": "npm run clean && tsc --watch"
+  },
+  "engines": {
+    "node": ">=10",
+    "homebridge": ">=1.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Dids/homebridge-ups-nut.git"
+  },
+  "keywords": [
+    "homebridge-plugin",
+    "ups",
+    "apc",
+    "nut",
+    "homekit",
+    "Siri",
+    "ts",
+    "TypeScript"
+  ],
+  "author": "Dids",
+  "contributors": [
+    "Dids"
+  ],
+  "maintainers": [
+    "Dids"
+  ],
+  "license": "GPL2",
+  "bugs": {
+    "url": "https://github.com/Dids/homebridge-ups-nut/issues"
+  },
+  "homepage": "https://github.com/Dids/homebridge-ups-nut",
+  "devDependencies": {
+    "@types/node": "^15.12.2",
+    "@typescript-eslint/eslint-plugin": "^4.26.1",
+    "@typescript-eslint/parser": "^4.26.1",
+    "eslint": "^7.28.0",
+    "homebridge": "^1.3.4",
+    "rimraf": "^3.0.2",
+    "typescript": "^4.3.2"
+  }
+}

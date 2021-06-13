@@ -1,0 +1,43 @@
+{
+  "pluginAlias": "UPSNUT",
+  "pluginType": "accessory",
+  "singular": false,
+  "headerDisplay": "Homebridge plugin for UPS devices via NUT.",
+  "footerDisplay": "",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "name": {
+        "title": "Name",
+        "type": "string",
+        "minLength": 1,
+        "default": "UPS",
+        "description": "The name used in both HomeBridge and HomeKit.",
+        "required": true
+      },
+      "nutIpAddress": {
+        "title": "NUT IP Address",
+        "type": "string",
+        "description": "IP address of the NUT service.",
+        "required": true,
+	      "format": "ipv4"
+      },
+      "nutUsername": {
+        "title": "NUT Username",
+        "type": "string",
+        "description": "Username for the NUT monitor user.",
+        "default": "",
+        "required": false
+      },
+      "nutPassword": {
+        "title": "NUT Password",
+        "type": "string",
+        "description": "Password for the NUT monitor user.",
+        "default": "",
+        "required": false
+      }
+    }
+  },
+  "form": null,
+  "display": null
+}
