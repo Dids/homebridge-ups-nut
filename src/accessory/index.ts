@@ -42,13 +42,29 @@ export class UPSAccessory implements IUPSAccessory {
    * REQUIRED - This is the entry point to your plugin
    */
   constructor(log: Logger, config: INUTAccessoryConfig | AccessoryConfig, api: API) {
+    if (!log) {
+      throw new Error('Invalid or missing Homebridge logger')
+    }
     this.log = log
+
+    if (!config) {
+      throw new Error('Invalid or missing accessory config')
+    }
     this.config = config
+
+    if (!api) {
+      throw new Error('Invalid or missing Homebridge API reference')
+    }
     this.api = api
 
+    if (!this.config.name) {
+      throw new Error('Invalid or missing accessory name in config')
+    }
     this.name = this.config.name
 
-    this.log.debug('UPS accessory plugin loaded with config:', JSON.stringify(config))
+    this.log.info('UPS accessory plugin loaded')
+
+    this.log.debug('Accessory config:', JSON.stringify(config))
 
     this.statusLowBattery = this.api.hap.Characteristic.StatusLowBattery.BATTERY_LEVEL_NORMAL
     this.batteryLevel = 100
@@ -80,6 +96,8 @@ export class UPSAccessory implements IUPSAccessory {
    * This method must be named "getServices".
    */
   getServices(): Array<Service> {
+    this.log.debug('Get Services')
+
     return [
       this.informationService,
       this.batteryService

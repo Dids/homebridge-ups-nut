@@ -1,7 +1,7 @@
 {
   "displayName": "Homebridge UPS NUT",
   "name": "homebridge-ups-nut",
-  "version": "0.0.1-rc3",
+  "version": "0.0.1-rc4",
   "description": "Homebridge plugin for UPS via NUT.",
   "main": "dist/index.js",
   "files": [
