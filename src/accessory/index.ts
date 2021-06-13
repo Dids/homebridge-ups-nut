@@ -10,10 +10,13 @@ export interface IUPSAccessory extends Partial<PlatformAccessory> {
 
   readonly informationService: Service
   readonly batteryService: Service
+  readonly contactSensorService: Service
 
   statusLowBattery: CharacteristicValue
   batteryLevel: CharacteristicValue
   chargingState: CharacteristicValue
+
+  contactSensorState: CharacteristicValue
 
   // TODO: Properly implement and use proper types (required for Accessories)
   //       https://github.com/J1mbo/homebridge-APC-Back-UPS-HS500/blob/master/index.js
@@ -22,6 +25,8 @@ export interface IUPSAccessory extends Partial<PlatformAccessory> {
   getStatusLowBattery(): Promise<CharacteristicValue>
   getBatteryLevel(): Promise<CharacteristicValue>
   getChargingState(): Promise<CharacteristicValue>
+
+  getContactSensorState(): Promise<CharacteristicValue>
 }
 
 export class UPSAccessory implements IUPSAccessory {
@@ -33,10 +38,13 @@ export class UPSAccessory implements IUPSAccessory {
 
   readonly informationService: Service
   readonly batteryService: Service
+  readonly contactSensorService: Service
 
   statusLowBattery: CharacteristicValue
   batteryLevel: CharacteristicValue
   chargingState: CharacteristicValue
+
+  contactSensorState: CharacteristicValue
 
   /**
    * REQUIRED - This is the entry point to your plugin
@@ -70,13 +78,15 @@ export class UPSAccessory implements IUPSAccessory {
     this.batteryLevel = 100
     this.chargingState = this.api.hap.Characteristic.ChargingState.NOT_CHARGING
 
+    this.contactSensorState = this.api.hap.Characteristic.ContactSensorState.CONTACT_DETECTED
+
     // FIXME: How do we update this dynamically from NUT? Should we do that?
     // your accessory must have an AccessoryInformation service
     this.informationService = new this.api.hap.Service.AccessoryInformation()
       .setCharacteristic(this.api.hap.Characteristic.Manufacturer, this.config.manufacturer)
       .setCharacteristic(this.api.hap.Characteristic.Model, this.config.model)
 
-    // create a new "Switch" service
+    // create a new "Battery" service
     this.batteryService = new this.api.hap.Service.Battery(this.name)
 
     // link methods used when getting or setting the state of the service
@@ -86,10 +96,18 @@ export class UPSAccessory implements IUPSAccessory {
       .onGet(this.getBatteryLevel.bind(this))
     this.batteryService.getCharacteristic(this.api.hap.Characteristic.ChargingState)
       .onGet(this.getChargingState.bind(this))
+
+    // create a new "ContactSensor" service
+    this.contactSensorService = new this.api.hap.Service.ContactSensor(this.name)
+
+    // link methods used when getting or setting the state of the service
+    this.contactSensorService.getCharacteristic(this.api.hap.Characteristic.ContactSensorState)
+      .onGet(this.getContactSensorState.bind(this))
   }
 
   // TODO: Properly implement and use proper types (required for Accessories)
   //       https://github.com/J1mbo/homebridge-APC-Back-UPS-HS500/blob/master/index.js
+  //       https://github.com/vectronic/homebridge-nut/blob/master/src/nutUpsAccessory.ts
 
   /**
    * REQUIRED - This must return an array of the services you want to expose.
@@ -100,7 +118,8 @@ export class UPSAccessory implements IUPSAccessory {
 
     return [
       this.informationService,
-      this.batteryService
+      this.batteryService,
+      this.contactSensorService
     ]
   }
 
@@ -122,6 +141,13 @@ export class UPSAccessory implements IUPSAccessory {
     this.log.info('Get ChargingState')
     const value = Math.floor(Math.random() * 2) // FIXME: Replace with real logic
     // return this.chargingState
+    return value
+  }
+
+  async getContactSensorState(): Promise<CharacteristicValue> {
+    this.log.info('Get ContactSensorState')
+    const value = Math.floor(Math.random() * 1) // FIXME: Replace with real logic
+    // return this.contactSensorState
     return value
   }
 }
